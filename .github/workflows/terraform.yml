@@ -1,0 +1,53 @@
+name: Terraform Azure Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/**'
+
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  terraform:
+    name: Terraform Plan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          client-id: "9817935e-2be3-4915-af43-42964d589c80"
+          tenant-id: "45d1ef8c-5cc9-4df3-9d04-a8a3848bbbb9"
+          subscription-id: "6928ef7d-4db0-43d8-a28c-cc53d9bb7d7a"
+          audience: api://AzureADTokenExchange
+
+      - name: Verify Azure Login
+        run: az account show
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Version
+        run: terraform version
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Format
+        run: terraform fmt -recursive
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        run: terraform plan
