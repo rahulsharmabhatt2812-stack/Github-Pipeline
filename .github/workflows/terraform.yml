@@ -22,9 +22,9 @@ jobs:
       - name: Azure Login
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          client-id: "9817935e-2be3-4915-af43-42964d589c80"
+          tenant-id: "45d1ef8c-5cc9-4df3-9d04-a8a3848bbbb9"
+          subscription-id: "6928ef7d-4db0-43d8-a28c-cc53d9bb7d7a"
           audience: api://AzureADTokenExchange
 
       - name: Verify Azure Login
